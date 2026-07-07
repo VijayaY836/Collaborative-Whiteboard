@@ -6,8 +6,7 @@ Built with **Node.js, Express, and Socket.IO** on the backend and **vanilla Java
 
 ![tech](https://img.shields.io/badge/node-%3E%3D18-3654FF) ![tech](https://img.shields.io/badge/socket.io-4.x-FF6B4A) ![tech](https://img.shields.io/badge/frontend-vanilla%20JS-22C39E)
 
-- 🔗 **Live demo:** _add your deployed Render link here_
-- 🎥 **Demo recording:** _add your screen-recording link here_
+- 🎥 **Demo recording:** https://drive.google.com/file/d/1LK8_UBe8x0a8Yrfs7qkseBww_MkJ0jdP/view?usp=sharing
 
 ---
 
