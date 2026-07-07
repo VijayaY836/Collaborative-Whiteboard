@@ -34,6 +34,15 @@
   const PAPER_COLOR = '#fdfcfa';
 
   // ---------------------------------------------------------------------
+  // Backend connection
+  // ---------------------------------------------------------------------
+  // If the frontend is deployed separately from the Socket.IO server
+  // (e.g. frontend on Vercel, backend on Render), set this to the
+  // backend's URL. Leave it as '' to connect to whatever origin served
+  // this page (use this when server.js also serves these static files).
+  const SOCKET_SERVER_URL = ''; // e.g. 'https://inkwell-backend.onrender.com'
+
+  // ---------------------------------------------------------------------
   // State
   // ---------------------------------------------------------------------
   let socket = null;
@@ -497,7 +506,9 @@
     const room = (roomInput.value.trim() || 'main').toLowerCase().replace(/\s+/g, '-');
     localStorage.setItem('inkwell-name', name);
 
-    socket = io({ transports: ['websocket', 'polling'] });
+    socket = SOCKET_SERVER_URL
+      ? io(SOCKET_SERVER_URL, { transports: ['websocket', 'polling'] })
+      : io({ transports: ['websocket', 'polling'] });
 
     socket.on('connect', () => {
       connDot.classList.remove('offline');

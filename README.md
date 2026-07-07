@@ -80,6 +80,22 @@ Both work too — just make sure the start command is `npm start` and the app li
 
 > No environment variables are required for a basic deployment.
 
+### Split deployment: backend on Render, frontend on Vercel
+
+Vercel's serverless functions historically couldn't hold a persistent Socket.IO connection, so the simplest reliable split is: **Render runs the always-on server, Vercel serves the static frontend.**
+
+1. **Backend on Render:** deploy this repo as-is (see "Render" above). Note the URL Render gives you, e.g. `https://inkwell-backend.onrender.com`.
+2. **Point the frontend at it:** open `public/js/main.js` and set:
+   ```js
+   const SOCKET_SERVER_URL = 'https://inkwell-backend.onrender.com';
+   ```
+3. **Frontend on Vercel:** create a new Vercel project from the same repo, and in the project settings set **Root Directory** to `public`. No build command is needed — Vercel will serve the static files directly. Deploy.
+4. Open the Vercel URL — it will connect over WebSocket to your Render backend.
+
+The Socket.IO client is already loaded from a CDN (`cdn.socket.io`) rather than from the server, so it works regardless of which host serves the page.
+
+> Vercel has since added WebSocket support of its own (currently in public beta), but it doesn't keep in-memory state (like this app's room history) consistent across function instances without an external store like Redis. The Render+Vercel split above avoids that entirely with no extra infrastructure.
+
 ## Suggested demo flow (for your screen recording)
 
 1. Open the deployed link in two separate browser windows side by side.
