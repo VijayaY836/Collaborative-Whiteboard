@@ -57,7 +57,7 @@ inkwell-whiteboard/
 Requires Node.js 18+.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+git clone https://github.com/VijayaY836/Collaborative-Whiteboard
 cd inkwell-whiteboard
 npm install
 npm start
@@ -82,33 +82,6 @@ No environment variables or `.env` file are required for local use — the serve
 5. **Undo & clear** — `undo-stroke` removes only the ops belonging to that stroke ID *and* that user from the room's history, then broadcasts a full `redraw-all` so everyone stays in sync. `clear-canvas` wipes a room's history entirely.
 6. **Leaving** — on disconnect, the user is dropped from the room's presence list and their cursor disappears for everyone else.
 
-## Deployment
-
-The server serves both the API and the static frontend (`app.use(express.static('public'))`), so **a single deploy is all you need** — no separate frontend host required.
-
-### Render (recommended)
-
-1. Push this repo to GitHub.
-2. On [render.com](https://render.com): **New → Web Service** → connect your repo.
-3. **Build Command:** `npm install` — **Start Command:** `npm start`.
-4. Deploy. Render gives you a public `https://your-app.onrender.com` URL — that's your whole app.
-
-> Free Render services spin down after 15 minutes of inactivity and take ~30–60s to wake on the next request. Normal behavior on the free tier.
-
-### Railway / Fly.io / Heroku
-
-All work the same way — just point the start command at `npm start`. The app already listens on `process.env.PORT`, so no extra config is needed.
-
-### Optional: splitting frontend and backend
-
-If you'd rather serve the frontend from a CDN-backed static host (e.g. Vercel) while Render (or similar) handles the Socket.IO server:
-
-1. Deploy the backend as above and note its URL.
-2. In `public/js/main.js`, set `SOCKET_SERVER_URL` to that URL.
-3. Deploy a second, frontend-only project pointed at the `public/` folder as its root — no build step needed, it's static files.
-
-This is entirely optional — most deployments won't need it.
-
 ## Using the app
 
 1. Enter a name and a room code (or click **New** for a random one), then **Enter the room**.
@@ -117,19 +90,6 @@ This is entirely optional — most deployments won't need it.
 4. Draw. Click the room pill at the top to copy an invite link for others.
 5. Toggle **show names** to label strokes with their author.
 6. **Undo** removes only your own last action; **Clear** wipes the board for everyone; **Save** downloads a PNG.
-
-## Known limitations
-
-- Drawing history is kept **in memory** on the server — restarting the server clears all rooms. There's no database.
-- Line/brush widths and font sizes are stored in absolute pixels, so they may look slightly different in proportion on very differently sized screens.
-- No authentication — anyone with a room code can join and draw.
-
-## Possible next steps
-
-- Persist room history to a database or Redis so it survives restarts
-- Selectable/movable objects instead of a single flattened canvas
-- Sticky notes, image uploads, or a lightweight chat panel
-- Per-room access control (private rooms, passwords)
 
 ## License
 
