@@ -40,7 +40,7 @@
   // (e.g. frontend on Vercel, backend on Render), set this to the
   // backend's URL. Leave it as '' to connect to whatever origin served
   // this page (use this when server.js also serves these static files).
-  const SOCKET_SERVER_URL = ''; // e.g. 'https://inkwell-backend.onrender.com'
+  const SOCKET_SERVER_URL = 'https://inkwell-backend-i9ap.onrender.com/'; 
 
   // ---------------------------------------------------------------------
   // State
